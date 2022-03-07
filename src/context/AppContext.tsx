@@ -10,6 +10,11 @@ interface AppContextType {
     isWhite: Boolean;
     updateIswhite: (value: any) => void,
     reset: () => void;
+    allQuestions: string[];
+    possibleQuestions: string[];
+    toggleQuestion: (question: string) => void;
+    selectAllQuestions: () => void;
+    unselectAllQuestions: () => void;
 }
 
 export const AppContext = createContext<AppContextType | null>(null);
@@ -23,7 +28,7 @@ export const AppContextProvider: React.FC<Props> = (props) => {
     const [gameOver, setGameOver] = useState(false);
     const [isWhite, setIsWhite] = useState(true);
 
-    const possibleQuestions = [
+    const allQuestions = [
         'h8', 'h7', 'h6', 'h5', 'h4', 'h3', 'h2', 'h1',
         'g8', 'g7', 'g6', 'g5', 'g4', 'g3', 'g2', 'g1',
         'f8', 'f7', 'f6', 'f5', 'f4', 'f3', 'f2', 'f1',
@@ -33,10 +38,35 @@ export const AppContextProvider: React.FC<Props> = (props) => {
         'b8', 'b7', 'b6', 'b5', 'b4', 'b3', 'b2', 'b1',
         'a8', 'a7', 'a6', 'a5', 'a4', 'a3', 'a2', 'a1'
     ];
+
+    const [possibleQuestions, setPossbileQuestions] = useState<string[]>([...allQuestions]);
+    function toggleQuestion(question: string) {
+        let possibleQNew = [...possibleQuestions]
+        let index = possibleQNew.indexOf(question);
+        if(index < 0) {
+            possibleQNew.push(question);
+        } else {
+            possibleQNew.splice(index, 1);
+        }
+        setPossbileQuestions(possibleQNew);
+        changeQuestion();
+    }
+
+    function selectAllQuestions() {
+        setPossbileQuestions([...allQuestions]);
+        changeQuestion();
+        console.log("hiii")
+    }
+
+    function unselectAllQuestions() {
+        setPossbileQuestions([]);
+        changeQuestion();
+    }
+
     const [question, setQuestion] = useState<string>(possibleQuestions[Math.floor(Math.random() * 64)]);
 
     function changeQuestion(): void {
-        setQuestion(possibleQuestions[Math.floor(Math.random() * 64)]);
+        setQuestion(possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)]);
     }
 
     function toggleGameOver(): void {
@@ -62,7 +92,12 @@ export const AppContextProvider: React.FC<Props> = (props) => {
         toggleGameOver,
         isWhite,
         updateIswhite,
-        reset
+        reset,
+        allQuestions,
+        possibleQuestions,
+        toggleQuestion,
+        selectAllQuestions,
+        unselectAllQuestions
     }
 
     return <AppContext.Provider value={contextValue}>

@@ -26,11 +26,16 @@ const Board = () => {
     console.log(board);
     return (
         <div className="p-1 mt-3 flex flex-col items-center">
-            { board.map((row, i) => (
-                <div key={i} className="flex flex-row">
-                    { row }
+            <div className='board-wrapper'>
+                { board.map((row, i) => (
+                    <div key={i} className="flex flex-row">
+                        { row }
+                    </div>
+                )) }
+                <div className="question-overlay">
+                    <h2 >{ctx?.question}</h2>
                 </div>
-            )) }
+            </div>
         </div>
     )
 }

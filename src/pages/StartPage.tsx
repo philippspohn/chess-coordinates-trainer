@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { RouteComponentProps, Link } from '@reach/router';
 
 import { AppContext } from '../context/AppContext';
+import SquareSelector from './SquareSelector';
 
 const StartPage: React.FC<RouteComponentProps> = () => {
     const ctx = useContext(AppContext);
@@ -53,6 +54,7 @@ const StartPage: React.FC<RouteComponentProps> = () => {
                 <Link to='/game'>
                     <button className="btn-start m-5">Start Game</button>
                 </Link>
+                <SquareSelector />
             </div>
         </div>
     )

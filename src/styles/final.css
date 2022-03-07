@@ -529,3 +529,33 @@ img {
         width: 33.333333%
     }
 }
+
+
+
+.sqaureSelectorButton {
+    color: white;
+
+    background-color: #696969;
+  }
+  .sqaureSelectorButton.possibleSquare {
+    color: white;
+    background-color: #7fa650;
+  }
+
+  .board-wrapper  {
+      position: relative;
+  }
+
+  .question-overlay {
+      color: white;
+      position: absolute;
+      font-weight: bold;
+      font-size: 200px;
+      color: white;
+      text-shadow: 0px 0px 50px black;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 60%;
+  }
